@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Bootstrap fragment</title>
+</head>
+	
+	<th:block th:fragment="index"> 
+	
+		<h1 class="my-3 mx-5 text-light">Consulta l'archivio</h1>
+		<div class="list-group m-5" >
+			<a href="/default/formSearchMovies" class="text-success icon-link-hover link-success">
+				<button class="container-fluid rounded-top list-group-item btn btn-outline-success" >Cerca film per anno</button>
+			</a>
+			<a href="/default/movie" class="text-success icon-link-hover link-success">
+				<button class="container-fluid list-group-item btn btn-outline-success" >Elenco film</button>
+			</a>
+		<a href="/default/artist" class="text-success icon-link-hover link-success">
+				<button class="container-fluid rounded-bottom list-group-item btn btn-outline-success" >Elenco artisti</button>
+			</a>
+		</div>
+	</th:block>
+	
+	<th:block th:fragment="showFilm">
+	
+	<div class="row m-3">
+		<div th:each="movie : ${movies}" class="col-sm-4 col-md-3 col-lg-2">
+			<div class="card m-3">
+				<div>
+					<div th:if="${movie.image} != null">
+						<img th:src="@{'/display/image/' + ${movie.image.id}}" class="card-img-top img-fluid" />
+					</div>
+					<div th:if="${movie.image} == null">
+						<img src="/images/image-not-available.jpeg" class="card-img-top img-fluid" />
+					</div>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">
+						<a class="text-success" th:href="@{'/default/movie/' + ${movie.id}}"
+						   th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
+					</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+	</th:block>
+</html>

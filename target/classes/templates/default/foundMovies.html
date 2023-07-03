@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Film</title>
+	<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/../images/sfondo-film.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	<div class="text-light m-5">
+	<h1>Film che soddisfano i requisiti</h1>
+	<div th:if="${movies.isEmpty()}" class="h4">Non ci sono film che soddisfano i requisiti</div>
+	</div>
+	<div th:replace="fragments/bodyFragment :: showFilm"></div>
+
+</body>
+
+</html>

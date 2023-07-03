@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Artists</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+	</head>
+	
+	<body class="bg-image" style="background-image: url('/images/sfondo-film.jpeg')">
+	
+		<div th:replace="fragments/headerFragment :: navbar"></div>
+		
+		<div th:if="${artists==null || artists.isEmpty()}">Non ci sono artisti nel sistema</div>
+		<div class=" text-light m-5">
+		<h1>Artisti presenti nel sistema</h1>
+			<div class="row">
+			<div th:each="artist : ${artists}" class="col-sm-4 col-md-3 col-lg-2">
+				<div class="card m-3">
+					<div>
+						<div th:if="${artist.image} != null">
+							<img th:src="@{'/display/image/' + ${artist.image.id}}" class="card-img-top img-fluid" />
+						</div>
+						<div th:if="${artist.image} == null">
+							<img src="/images/image-not-available.jpeg" class="card-img-top img-fluid" />
+						</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">
+							<span th:text="${artist.name} + ' ' + ${artist.surname}"></span>
+							<a class="text-success" th:href="@{'/admin/formUpdateArtist/' + ${artist.id}}">Aggiorna</a>
+					
+						</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

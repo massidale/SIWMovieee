@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Film</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/../images/sfondo-film.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	<div class="text-light mx-5 my-4">
+		<h1>Film</h1>
+		<div th:if="${movies==null || movies.isEmpty()}" class="h4" >Non ci sono film nel sistema</div>
+	</div>
+	<div class="row m-3">
+		<div th:each="movie : ${movies}" class="col-sm-4 col-md-3 col-lg-2">
+			<div class="card m-3">
+				<div>
+					<div th:if="${movie.image} != null">
+						<img th:src="@{'/display/image/' + ${movie.image.id}}" class="card-img-top img-fluid" />
+					</div>
+					<div th:if="${movie.image} == null">
+						<img src="/images/image-not-available.jpeg" class="card-img-top img-fluid" />
+					</div>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">
+						
+						<span th:text="${movie.title} + ' (' + ${movie.year} + ') '">Up! (2000)</span>
+						   <a th:href="@{'/admin/formUpdateMovie' + '/' + ${movie.id}}" class="text-success">Aggiorna </a>
+						  
+					</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

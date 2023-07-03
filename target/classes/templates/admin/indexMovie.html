@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SiwMovie - Gestione Film
+	</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/images/sfondo-film.jpeg')">
+	<div th:replace="fragments/headerFragment :: header"></div>
+	
+	<h1 class="my-3 mx-5 text-light">Gestione film</h1>
+	<div class="list-group m-5" >
+		<a href="/admin/formNewMovie" class="text-success icon-link-hover link-success">
+			<button class="container-fluid rounded-top list-group-item btn btn-outline-success" >Inserisci i dati di un film</button>
+		</a>
+		<a href="/admin/manageMovies" class="text-success icon-link-hover link-success">
+			<button class="container-fluid rounded-bottom list-group-item btn btn-outline-success" >Gestisci i film</button>
+		</a>
+	</div>
+</body>
+
+</html>
+
+	

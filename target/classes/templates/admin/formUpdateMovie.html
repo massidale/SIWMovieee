@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Film</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/images/sfondo-pellicola.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	<div class=" text-light m-5">
+	    <h1 class="mb-5">Dettagli Film</h1>
+	    <div th:if="${movie}">
+	        <h2 th:text="${movie.title}">Up!</h2>
+	        <span th:text="'(' + ${movie.year} + ')'">2000</span>
+	        <h2>Attori presenti:</h2>
+	        <span th:if ="${!movie.actors.isEmpty()}">
+	        	<div th:each ="actor: ${movie.actors}">
+	       	 		<a class="text-light" th:text= "${actor.name} + ' ' + ${actor.surname}"
+	       	 			th:href= "@{'/admin/formUpdateArtist/' + ${actor.id}}"></a>
+	       	 	</div>
+	        </span>
+	       	<div th:unless="${!movie.actors.isEmpty()}">Nessun attore presente nel film</div>
+	        
+				<a th:href="@{'/admin/updateActors/' + ${movie.id}}">
+					<button type="button" class="btn btn-success my-3" >Modifica attori</button>
+				</a>
+	        <h2>Regista: </h2>
+	        <span th:if ="${movie.director}">
+	        	<a class="text-light" th:text="${movie.director.name} + ' ' + ${movie.director.surname}" th:href= "@{'/admin/formUpdateArtist/' + ${movie.director.id}}" ></a>
+	        	<div>
+	        		<a th:href="@{'/admin/addDirector/' + ${movie.id}}">
+				   		<button type="button" class="btn btn-success my-3">Modifica regista</button></a>
+				</div>
+			</span>
+			<span th:unless="${movie.director}">Nessun regista presente per il film </span>
+			
+			<div th:unless="${movie.director}">
+				<a th:href="@{'/admin/addDirector/' + ${movie.id}}">
+					<button type="button" class="btn btn-success my-3">Aggiungi regista</button> </a>
+			</div>
+			
+	        <div th:if="${movie.image} != null">
+				<img th:src="@{'/display/image/' + ${movie.image.id}}" width=50% />
+				<div><a th:href="@{'/admin/removeImageFromMovie/' + ${movie.id}}"><button type="button" class="btn btn-success my-3"> Rimuovi immagine </button></a></div>
+	        </div>
+	        <div th:if="${movie.image} == null">
+	        	<img class="rounded my-3" src="/images/image-not-available.jpeg" />
+	        	<div>Aggiungi un immagine per il film</div>
+		        <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/addImageToMovie/' + ${movie.id}}">
+		        	<input type="file" name="file" class="my-2 form-control" style="max-width: 280px;" required />
+	        	<button type="submit" class="btn btn-success">Aggiungi immagine</button>
+	        	</form>
+	        </div>
+			<div th:if="${!movie.reviews.isEmpty()}" >
+				<h3 class="mt-5"> Recensioni: </h3>
+				<li th:each="review: ${movie.reviews}" th:remove="tag">
+					<div class="border rounded bg-light text-dark p-3 my-3" style="width: 1000px">
+					<h6 th:text="${review.user.name} + ' ' + ${review.user.surname}"> </h6>
+                        <span th:each="i : ${#numbers.sequence(1, review.value)}">&#9733;</span>
+					
+					<span class="h5" th:text="${review.title}"></span>
+					<div th:text="${review.comment}" ></div>
+				</div>
+	    		<a class="text-light" th:href="@{'/admin/removeReview/' + ${movie.id} + '/' + ${review.id}}"> Rimuovi recensione </a>
+				</li>
+			</div>
+	    </div>
+	    <div th:unless="${movie}">Non esiste</div>
+    </div>
+  </body>
+</html>

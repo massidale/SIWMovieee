@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Scelta attori</title>
+<head>
+	<title>Artisti</title>
+	<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/images/sfondo-film.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	
+	<div class=" text-light m-5">
+	<h1 th:text="'Attori del film ' + ${movie.title}"></h1>
+	<div th:if="${movie.actors.isEmpty()}">Non ci sono attori in questo film</div>
+		<div class="row">
+			<div th:each="artist : ${movie.actors}" class="col-sm-4 col-md-3 col-lg-2">
+					<div class="card m-3">
+						<div>
+							<div th:if="${artist.image} != null">
+								<img th:src="@{'/display/image/' + ${artist.image.id}}" class="card-img-top img-fluid" />
+							</div>
+							<div th:if="${artist.image} == null">
+								<img src="/images/image-not-available.jpeg" class="card-img-top img-fluid" />
+							</div>
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">
+								<span th:text="${artist.name} + ' ' + ${artist.surname} "></span>
+								<a class="text-success" th:href="@{'/admin/removeActorFromMovie/' + ${artist.id} + '/' + ${movie.id}}" >Rimuovi</a>
+						
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		<h1>Attori che si possono aggiungere: </h1>
+		<div th:if="${actorsToAdd.isEmpty()}">Non ci sono attori da aggiungere</div>
+			<div class="row">
+				<div th:each="artist : ${actorsToAdd}" class="col-sm-4 col-md-3 col-lg-2">
+						<div class="card m-3">
+							<div>
+								<div th:if="${artist.image} != null">
+									<img th:src="@{'/display/image/' + ${artist.image.id}}" class="card-img-top img-fluid" />
+								</div>
+								<div th:if="${artist.image} == null">
+									<img src="/images/image-not-available.jpeg" class="card-img-top img-fluid" />
+								</div>
+							</div>
+							<div class="card-body">
+								<h5 class="card-title">
+										<span th:text="${artist.name} + ' ' + ${artist.surname} ">Rimuovi</span>
+										<a class="text-success" th:href="@{'/admin/addActorToMovie/' + ${artist.id} + '/' + ${movie.id}}" >Aggiungi</a>
+								</h5>
+							</div>
+						</div>
+				</div>
+			</div>
+		<div>
+		<a th:href="@{'/admin/formUpdateMovie/'+ ${movie.id}}"><button type="button" class="btn btn-success m-3 px-3">Fine</button></a>
+	</div>
+</body>
+
+</html>

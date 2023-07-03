@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SiwMovie - Login
+	</title>
+    <div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('images/sfondo-film.jpeg')">
+	<header class="d-flex justify-content-between align-items-center m-l-100 p-3 text-primary bg-light">
+		<div>
+			<a href="/"><img src="/images/logo-siw.png" width=30% class=""/></a>
+		</div>
+		<div class= "ms-auto">
+			<div th:if="${userDetails}" class="d-flex align-items-center">
+				<span th:text="${userDetails.username}" class="me-3 text-success"></span>
+				<a href="/logout" class="btn btn-outline-success">Logout</a>
+			</div>
+			<div th:if="!${userDetails}">
+				
+			</div>
+		</div>
+	</header>
+	
+	<h1 class="container-fluid d-flex justify-content-center my-3 text-light">Login</h1>
+	<div class="container d-flex justify-content-center" style="max-width: 300px">
+		<form th:action="@{/login}" method="POST" class="container bg-light p-3 rounded">
+		    <div class="mb-3">
+		        <label for="username" class="form-label">Username</label>
+		        <input type="text" class="form-control form-control-sm" id="username" name="username" placeholder="username" required>
+		    </div>
+		    <div class="mb-3">
+		        <label for="password" class="form-label">Password</label>
+		        <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="password" required>
+		    </div>
+		    <div class="mb-3" th:if="${param.error != null}">
+		        <span class="text-danger">Username o password errati</span>
+		    </div>
+		    <div class="mb-3">
+		        <button type="submit" class="btn btn-outline-success">Login</button>
+		    </div>
+			<h6 >Sei nuovo? <a th:href="@{/register}" class="text-success">Registrati</a></h6>
+		</form>
+	</div>
+
+
+	
+</body>
+
+</html>

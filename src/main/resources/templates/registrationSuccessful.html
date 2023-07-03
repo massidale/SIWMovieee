@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwMovie - Registrazione conclusa</title>
+	<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/../images/sfondo-film.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	
+	<div class="m-5 text-light">
+	<h1>Congratulazioni ti sei registrato!</h1>
+		<div class="h4">
+			<span>Nome: </span>
+			<span th:text="${user.name}"></span>
+		</div>
+		<div class="h4">
+			<span>Cognome: </span>
+			<span th:text="${user.surname}"></span>
+		</div>
+		<div class="h4">
+			<span>Email: </span>
+			<span th:text="${user.email}"></span>
+		</div>
+	</div>
+</body>
+</html>

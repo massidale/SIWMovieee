@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Film</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/images/sfondo-pellicola.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	<div class=" text-light m-5">
+	    <h1 class="mb-5">Dettagli Film</h1>
+	    <div th:if="${movie}">
+	        <h2 th:text="${movie.title}">Up!</h2>
+	        <span th:text="'(' + ${movie.year} + ')'">2000</span>
+	        <h2>Attori presenti:</h2>
+	        	<span th:if ="${!movie.actors.isEmpty()}">
+	        		<div th:each ="actor: ${movie.actors}">
+	       	 			<a class="text-light" th:text= "${actor.name} + ' ' + ${actor.surname}"
+	       	 				th:href= "@{'/default/artist/' + ${actor.id}}"></a>
+	        		</div>
+	       		</span>
+	       	 	<span th:unless="${!movie.actors.isEmpty()}">Nessun attore presente nel film</span>
+	        <h2>Regista: </h2>
+	        <span th:if ="${movie.director}">
+	        	<a class="text-light" th:text="${movie.director.name} + ' ' + ${movie.director.surname}" th:href= "@{'/default/artist/' + ${movie.director.id}}" ></a>
+			</span> 
+			<span th:unless="${movie.director}">Nessun regista presente per il film </span>
+	        <div th:if="${movie.image} != null">
+				<img class="my-3" th:src="@{'/display/image/' + ${movie.image.id}}" width=50% />
+	        </div>
+	        <div th:if="${movie.image} == null">
+	        	<img class="rounded my-3" src="/images/image-not-available.jpeg" />
+	        </div>
+			<div th:if="${!movie.reviews.isEmpty()}" >
+				<h3 class="mt-5"> Recensioni: </h3>
+				<li th:each="review: ${movie.reviews}" th:remove="tag">
+					<div class="border rounded bg-light text-dark p-3 my-3" style="width: 1000px">
+					<h5 th:text="${review.credentials.user.name} + ' ' + ${review.credentials.user.surname} + ' (' + ${review.credentials.username} + ')'"> </h5>
+                        <span th:each="i : ${#numbers.sequence(1, review.value)}">&#9733;</span>
+					
+					<span class="h5" th:text="${review.title}"></span>
+					<div th:text="${review.comment}" ></div>
+				</div>
+				</li>
+			</div>
+	    </div>
+	    <div th:unless="${movie}">Non esiste</div>
+	    <a th:href="@{'/user/formNewReview/' + ${movie.id}}" class="text-light"> Aggiungi una recensione </a>
+    </div>
+  </body>
+</html>

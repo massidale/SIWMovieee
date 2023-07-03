@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		New Movie
+	</title>
+	<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/images/sfondo-film.jpeg')">
+	<div th:replace="fragments/headerFragment :: header"></div>
+	
+	<h1 class="container-fluid d-flex justify-content-center my-3 text-light">Aggiungi un artista </h1>
+	<div class="container d-flex justify-content-center" style="max-width: 300px">
+		<form th:action="@{/admin/artist}" method="POST" th:object="${artist}" enctype="multipart/form-data" class="container bg-light p-3 rounded">
+			<div  class="mb-3">
+		  		<div th:if="${#fields.hasGlobalErrors()}">
+		  			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p> 
+		  		</div>
+				
+				<div class="mb-3"> 
+		  			<label for="nome" class="form-label">Nome</label>
+					<span><input type="text" th:field="${artist.name}" required placeholder="name" class="form-control form-control-sm" /></span>
+				    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> </span>
+				</div>
+		
+				<div class= "mb-3">
+					<label for="cognome" class="form-label">Cognome</label>
+					<span><input type="text" th:field="${artist.surname}" required placeholder="surname" class="form-control form-control-sm" /></span>
+				    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"> </span>
+				</div>
+				
+				<div class= "mb-3">
+					<label for="anno" class="form-label">Anno di nascita</label>
+					<span><input type="date" th:field="${artist.dateOfBirth}" required placeholder="date of birth" class="form-control form-control-sm" /></span>
+				    <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"> </span>
+				</div>
+				
+				<div class= "mb-3">
+					<label for="anno" class="form-label">Anno di morte</label>
+					<span><input type="date" th:field="${artist.dateOfDeath}" required placeholder="date of death" class="form-control form-control-sm" /></span>
+				    <span th:if="${#fields.hasErrors('dateOfDeath')}" th:errors="*{dateOfDeath}"> </span>
+				</div>
+		
+				<div class="mb-3">
+					<label for="immagine" class="form-label">Immagine</label>
+				
+					<div><input type="file" name="file" class=" form-control form-control-sm" /></div>
+				    <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"> </span>
+				</div>
+				
+				<div>
+					<button type="submit" class="btn btn-outline-success">Conferma</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

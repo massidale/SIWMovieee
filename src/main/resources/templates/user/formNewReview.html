@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New review</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+	</head>
+	
+	<body class="bg-image" style="background-image: url('/images/sfondo-film.jpeg')">
+	
+		<div th:replace="fragments/headerFragment :: navbar"></div>
+		<h1 class="container-fluid d-flex justify-content-center my-3 text-light">Scrivi una recensione</h1>
+		<div class="container d-flex justify-content-center" style="max-width: 600px">
+			<form th:action="@{'/default/review/' + ${movieId}}" method="POST" th:object="${review}" class="container bg-light p-3 rounded">
+			
+				<div th:if="${#fields.hasGlobalErrors()}">
+	  				<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" th:style="'color:red'">...</p> 
+	  			</div>
+	  			
+			    <div class="mb-3" style="width: 250px;">
+			        <label for="titolo" class="form-label">Titolo</label>
+			        <input type="text" th:field="${review.title}" class="form-control form-control-sm" id="title" name="titolo" placeholder="titolo recensione" required>
+			        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+			    </div>
+			    
+			    <div class="mb-3" style="width: 250px;">
+			        <label for="value" class="form-label">Voto</label>
+			        <input type="number" th:field="${review.value}" class="form-control form-control-sm"  min="1" max="5" id="value" name="value" placeholder="5" required>
+			        <span th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></span>
+			    </div>
+			    
+			    <label for="comment" class="form-label">Commento</label>
+			    <div class="mb-3 form-floating">
+			        <textarea type="text" th:field="${review.comment}" class="form-control " id="value" name="comment" style="height: 100px;" required> </textarea>
+			        <span th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></span>
+			    </div>
+			    
+			    <div class="mb-3">
+			        <button type="submit" class="btn btn-outline-success">Conferma</button>
+			    </div>
+			    
+			</form>
+		</div>	
+	</body>
+</html>

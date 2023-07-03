@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		New Movie
+	</title>
+	<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/images/sfondo-film.jpeg')">
+	<div th:replace="fragments/headerFragment :: header"></div>
+	
+	<h1 class="container-fluid d-flex justify-content-center my-3 text-light">Aggiungi un film </h1>
+	<div class="container d-flex justify-content-center" style="max-width: 300px">
+		<form th:action="@{/admin/movie}" method="POST" th:object="${movie}" enctype="multipart/form-data" class="container bg-light p-3 rounded">
+			<div  class="mb-3">
+		  		<div th:if="${#fields.hasGlobalErrors()}">
+		  			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p> 
+		  		</div>
+				
+				<div class="mb-3"> 
+		  			<label for="titolo" class="form-label">Titolo</label>
+					<span><input type="text" th:field="${movie.title}" required placeholder="title" class="form-control form-control-sm" /></span>
+				    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </span>
+				</div>
+		
+				<div class= "mb-3">
+					<label for="anno" class="form-label">Anno</label>
+					<span><input type="number" th:field="${movie.year}" required placeholder="year" class="form-control form-control-sm" /></span>
+				    <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"> </span>
+				</div>
+		
+				<div class="mb-3">
+					<label for="immagine" class="form-label">Immagine</label>
+					<div><input type="file" name="file" class=" form-control form-control-sm" /></div>
+				    <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"> </span>
+				</div>
+				
+				<div>
+					<button type="submit" class="btn btn-outline-success">Conferma</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

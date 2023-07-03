@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Film</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/../images/sfondo-film.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	<div class="text-light mx-5 my-4">
+		<h1 class="mb-5">Film</h1>
+		<div th:if="${movies==null || movies.isEmpty()}" class="h4" >Non ci sono film nel sistema</div>
+	</div>
+	<div th:replace="fragments/bodyFragment :: showFilm"></div>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Artista</title>
+		<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+</head>
+
+<body class="bg-image" style="background-image: url('/../images/sfondo-pellicola.jpeg')">
+
+	<div th:replace="fragments/headerFragment :: navbar"></div>
+	<div class=" text-light m-5">
+	<h1 class="mb-5">Dettagli Artista</h1>
+	    <div th:if="${artist}">
+	        <h2 th:text="${artist.name} + ' ' + ${artist.surname}">Dino Risi</h2>
+	        <span th:text="'( ' + ${artist.dateOfBirth}">20/20/2000</span>
+	        <span th:if="${artist.dateOfDeath} != null" th:text="', ' + ${artist.dateOfDeath}"></span>
+	        <span>)</span>
+	        <h4 th:if="${!artist.starredMovies.isEmpty()}" >Film in cui ha partecipato:</h4>
+	        <div th:each="movie: ${artist.starredMovies}">
+	        	<a class="text-light" th:text="${movie.title} + ' (' + ${movie.year} + ')'" th:href="@{'/default/movie/' + ${movie.id}}"></a>
+	        </div>
+	        
+	        <h4 th:if="${!artist.directedMovies.isEmpty()}" >Film che ha diretto:</h4>
+	        <div th:each="movie: ${artist.directedMovies}">
+	        	<a class="text-light" th:text="${movie.title} + ' ' + ${movie.year}" th:href="@{'/default/movie/' + ${movie.id}}"></a>
+	        </div>
+	        	
+	        <div th:if="${artist.image} != null">
+				<img class="my-3" th:src="@{'/display/image/' + ${artist.image.id}}" width=50% />
+	        </div>
+	        <div th:if="${artist.image} == null">
+	        	<img class="rounded my-3" src="/images/image-not-available.jpeg" />
+	        </div>
+	    </div>
+	    <div th:unless="${artist}">Non esiste</div>
+	</div>
+  </body>
+</html>

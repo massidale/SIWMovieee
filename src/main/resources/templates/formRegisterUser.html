@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>
+			SiwMovie - Registrazione
+		</title>
+			<div th:replace="fragments/headerFragment :: bootstrap-dep"></div>
+	</head>
+	
+	<body class="bg-image" style="background-image: url('images/sfondo-film.jpeg')">
+		<header class="d-flex justify-content-between align-items-center m-l-100 p-3 text-primary bg-light">
+			<div>
+				<a href="/"><img src="/images/logo-siw.png" width=30% class=""/></a>
+			</div>
+			<div class= "ms-auto">
+				<div th:if="${userDetails}" class="d-flex align-items-center">
+					<span th:text="${userDetails.username}" class="me-3 text-success"></span>
+					<a href="/logout" class="btn btn-outline-success">Logout</a>
+				</div>
+				<div th:if="!${userDetails}">
+					
+				</div>
+			</div>
+		</header>
+		
+		<h1 class="container-fluid d-flex justify-content-center my-3 text-light">Registrazione nuovo utente</h1>
+		<div class="container d-flex justify-content-center" style="max-width: 300px">
+			<form th:action="@{/register}" method="POST" class="container bg-light p-3 rounded">
+				<div class="mb-3">
+					<label for="nome" class="form-label">Nome</label>
+					<span><input type="text" required placeholder="name" class="form-control form-control-sm" th:field="${user.name}" /></span>
+					<span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"></span>
+				</div>
+				<div class="mb-3">
+					<label for="cognome" class="form-label" >Cognome</label>
+					<span><input type="text" placeholder="surname" class="form-control form-control-sm" required th:field="${user.surname}" /></span>
+					<span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'">
+					</span>
+				</div>
+				<div class="mb-3">
+					<label for="email" class="form-label">Email</label>
+					<span><input type="text" placeholder="example@gmail.com" class="form-control form-control-sm" required th:field="${user.email}" /></span>
+					<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
+					</span>
+				</div>
+				<div class="mb-3">
+					<label for="username" class="form-label">Username</label>
+					<span>
+						<input type="text" placeholder="username" class="form-control form-control-sm" required th:field="${credentials.username}" />
+					</span>
+					<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<div class="mb-3">
+					<label for="password" class="form-label" >Password</label>
+					<span><input type="password" placeholder="password" class="form-control form-control-sm" required th:field="${credentials.password}" />
+					</span>
+					<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				
+				<div>
+					<button type="submit" class="btn btn-outline-success">Registrati</button>
+				</div>
+				<h6 class="mt-3">Hai gia' un account? <a class="text-success" th:href="@{/login}">Accedi</a></h6>
+			</form>
+		</div>
+	</body>
+
+</html>
